@@ -1,9 +1,8 @@
 FROM nixos/nix
 
-RUN nix-env -iA nixpkgs.go
+RUN nix-env -iA nixpkgs.go nixpkgs.air
 
 WORKDIR /app
+ENV GOFLAGS "-buildvcs=false"
 
-COPY . .
-
-CMD go run main.go
+CMD air
