@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"os"
+	"os/exec"
 
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
@@ -54,6 +56,12 @@ var upCmd = &cobra.Command{
 		if err != nil {
 			log.Fatalf("%v", err)
 		}
-		fmt.Printf("%v", config.Up.Dependencies)
+		for _, dependency := range config.Up.Dependencies {
+			writer := io.MultiWriter(os.Stdout)
+			cmd := exec.Command("nix-env", "--install", dependency)
+			cmd.Stdout = writer
+			cmd.Stderr = writer
+			cmd.Run()
+		}
 	},
 }
