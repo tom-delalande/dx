@@ -1,0 +1,5 @@
+name: dx
+up:
+  dependencies:
+    - cmake
+    - git
