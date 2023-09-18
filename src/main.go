@@ -60,7 +60,8 @@ var upCmd = &cobra.Command{
 			log.Fatalf("%v", err)
 		}
 		for _, environment := range config.Up.Environment {
-			fmt.Printf("set %v %v", environment.Name, environment.Value)
+			fmt.Printf("set %v %v && ", environment.Name, environment.Value)
 		}
+		fmt.Printf("echo ''")
 	},
 }
