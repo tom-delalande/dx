@@ -16,8 +16,8 @@ type Environment struct {
 type Config struct {
 	Name string `yaml:"name"`
 	Up   struct {
-		Dependencies []string      `yaml:",flow"`
-		Environment  []Environment `yaml:",flow"`
+		// Dependencies []string      `yaml:",flow"`
+		Environment []Environment `yaml:",flow"`
 	}
 }
 
