@@ -15,7 +15,12 @@ dependencies, and environment variables.
 
 # Usage
 
-There are no exported binaries right now. You can run `go run src/main.go up`
+Currently only works in `fish`.
+
+
+There are no exported binaries right now. You can run `eval (go run src/main.go up)`
 with a `dx.yaml` file in the current directory.
 
+
+This will set the environment variables specified in the yaml file.
 

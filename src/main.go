@@ -2,19 +2,22 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"log"
 	"os"
-	"os/exec"
 
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 )
 
+type Environment struct {
+	Name  string `yaml:"name"`
+	Value string `yaml:"value"`
+}
 type Config struct {
 	Name string `yaml:"name"`
 	Up   struct {
-		Dependencies []string `yaml:",flow"`
+		Dependencies []string      `yaml:",flow"`
+		Environment  []Environment `yaml:",flow"`
 	}
 }
 
@@ -36,7 +39,7 @@ var rootCmd = &cobra.Command{
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print the version number of dx",
-	Long:  `All software has versions. This is dx's`,
+	Long:  `Print the version number of dx`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("0.0.0")
 	},
@@ -44,8 +47,8 @@ var versionCmd = &cobra.Command{
 
 var upCmd = &cobra.Command{
 	Use:   "up",
-	Short: "Install dependencies for the current project",
-	Long:  `Install dependencies for the current project`,
+	Short: "Setup the current project",
+	Long:  `Setup the current project`,
 	Run: func(cmd *cobra.Command, args []string) {
 		data, err := os.ReadFile("./dx.yml")
 		if err != nil {
@@ -56,12 +59,8 @@ var upCmd = &cobra.Command{
 		if err != nil {
 			log.Fatalf("%v", err)
 		}
-		for _, dependency := range config.Up.Dependencies {
-			writer := io.MultiWriter(os.Stdout)
-			cmd := exec.Command("nix-env", "--install", dependency)
-			cmd.Stdout = writer
-			cmd.Stderr = writer
-			cmd.Run()
+		for _, environment := range config.Up.Environment {
+			fmt.Printf("set %v %v", environment.Name, environment.Value)
 		}
 	},
 }

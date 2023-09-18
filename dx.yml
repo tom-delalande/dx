@@ -2,3 +2,6 @@ name: dx
 up:
   dependencies:
     - go
+  environment:
+    - name: NAME
+      value: WORLD!
