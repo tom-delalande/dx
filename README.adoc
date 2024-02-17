@@ -1,0 +1,42 @@
+= dx
+
+`dx` is a tool that aims to make development more consistent when working on multiple projects. It is a CLI tool that provides utilities to make the developer experience more enjoyable.
+
+Currently, the only command is `doctor` which can be used to check whether the currently installed dependencies match what the repository expects you to have installed.
+
+`dx` uses a `pkl` file named `dx.pkl` at the root of the repository to identify.
+
+Here is an example `dx.pkl` file that can be used in a Java project.
+
+[,pkl]
+----
+doctor {
+  new {
+    name = "Java"
+    command = "java --version"
+    expectOutputContains = "openjdk 19.0.2 2023-01-17"
+  }
+
+  new {
+    name = "Gradle"
+    command = "gradle --version"
+    expectOutputContains = "Gradle 8.3"
+  }
+
+  new {
+    name = "Kotlin"
+    command = "gradle --version"
+    expectOutputContains = "Kotlin:       1.9.0"
+  }
+}
+----
+
+Running the following command in the directory will product the results:
+[,bash]
+----
+$ dx doctor
+
+[✓] Java succeeded
+[✓] Gradle succeeded
+[✓] Kotlin succeeded
+----

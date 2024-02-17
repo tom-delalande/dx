@@ -1,0 +1,21 @@
+amends "dx/DxConfig.pkl"
+
+doctor {
+  new {
+    name = "Java"
+    command = "java --version"
+    expectOutputContains = "openjdk 19.0.2 2023-01-17"
+  }
+
+  new {
+    name = "Gradle"
+    command = "gradle --version"
+    expectOutputContains = "Gradle 8.3"
+  }
+
+  new {
+    name = "Kotlin"
+    command = "gradle --version"
+    expectOutputContains = "Kotlin:       1.9.0"
+  }
+}

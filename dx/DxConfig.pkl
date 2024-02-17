@@ -1,0 +1,9 @@
+module dx
+
+doctor: Listing<Doctor>
+
+class Doctor {
+  name: String
+  command: String
+  expectOutputContains: String
+}
